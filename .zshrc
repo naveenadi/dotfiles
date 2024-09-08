@@ -68,3 +68,12 @@ alias c='clear'
 # Shell integrations
 eval "$(fzf --zsh)"
 # eval "$(zoxide init --cmd cd zsh)"
+export PATH=$HOME/.local/bin:$PATH
+
+export PATH=$HOME/.puro/envs/default/flutter/bin:$PATH
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /home/naveen/.dart-cli-completion/zsh-config.zsh ]] && . /home/naveen/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+

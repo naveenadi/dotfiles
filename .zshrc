@@ -77,3 +77,7 @@ export PATH=$HOME/.puro/envs/default/flutter/bin:$PATH
 [[ -f /home/naveen/.dart-cli-completion/zsh-config.zsh ]] && . /home/naveen/.dart-cli-completion/zsh-config.zsh || true
 ## [/Completion]
 
+autoload bashcompinit
+bashcompinit
+source "/home/naveen/.bash_completion"
+alias shopt='/usr/bin/shopt'

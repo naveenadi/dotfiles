@@ -1,19 +1,26 @@
-if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]] then
-  # If you're using linux with brew install, you'll want this enabled
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+### Added by Zinit's installer
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
 fi
 
-# Set the directory we want to store zinit and plugins
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
-# Download Zinit, if it's not there yet
-if [ ! -d "$ZINIT_HOME" ]; then
-   mkdir -p "$(dirname $ZINIT_HOME)"
-   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
-fi
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
 
-# Source/Load zinit
-source "${ZINIT_HOME}/zinit.zsh"
+### End of Zinit's installer chunk
 
 # Add in zsh plugins
 zinit light zsh-users/zsh-syntax-highlighting
@@ -30,7 +37,6 @@ zinit snippet OMZP::command-not-found
 autoload -Uz compinit && compinit
 
 zinit cdreplay -q
-
 
 eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/zen.toml)"
 
@@ -62,22 +68,10 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
 alias ls='ls --color'
+alias ll="ls -al" # List all files in current directory in long list format
 alias vim='nvim'
 alias c='clear'
+alias o="open ." # Open the current directory in Finder
 
 # Shell integrations
-eval "$(fzf --zsh)"
-# eval "$(zoxide init --cmd cd zsh)"
-export PATH=$HOME/.local/bin:$PATH
-
-export PATH=$HOME/.puro/envs/default/flutter/bin:$PATH
-
-## [Completion]
-## Completion scripts setup. Remove the following line to uninstall
-[[ -f /home/naveen/.dart-cli-completion/zsh-config.zsh ]] && . /home/naveen/.dart-cli-completion/zsh-config.zsh || true
-## [/Completion]
-
-autoload bashcompinit
-bashcompinit
-source "/home/naveen/.bash_completion"
-alias shopt='/usr/bin/shopt'
+source <(fzf --zsh)

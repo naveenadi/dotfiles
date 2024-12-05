@@ -1,3 +1,5 @@
+# Add deno completions to search path
+if [[ ":$FPATH:" != *":/Users/naveen/.zsh/completions:"* ]]; then export FPATH="/Users/naveen/.zsh/completions:$FPATH"; fi
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
@@ -69,9 +71,20 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 # Aliases
 alias ls='ls --color'
 alias ll="ls -al" # List all files in current directory in long list format
-alias vim='nvim'
+# alias vim='nvim'
 alias c='clear'
 alias o="open ." # Open the current directory in Finder
+alias flutter="fvm flutter"
+alias dart="fvm dart"
 
 # Shell integrations
 source <(fzf --zsh)
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /Users/naveen/.dart-cli-completion/zsh-config.zsh ]] && . /Users/naveen/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+
+export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+export CPPFLAGS="-I/opt/homebrew/opt/openjdk@17/include"
+

@@ -88,3 +88,6 @@ source <(fzf --zsh)
 export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 export CPPFLAGS="-I/opt/homebrew/opt/openjdk@17/include"
 
+
+# Added by Windsurf
+export PATH="/Users/naveen/.codeium/windsurf/bin:$PATH"
